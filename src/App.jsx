@@ -1,6 +1,12 @@
+import fetchPokemon from "./api/pokemon";
 import "./styles/App.css";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    fetchPokemon();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <header className="mb-3 font-pokemon-game text-2xl">

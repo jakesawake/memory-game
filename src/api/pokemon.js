@@ -10,20 +10,28 @@ export default async function fetchPokemon() {
     // console.log(response.status);
 
     const pokemon = await response.json();
-    console.log(pokemon);
+    // console.log(pokemon);
 
-    // console.log(pokemon.results[0].name) gets the name of the pokemon
-    // console.log(pokemon.results[0].url) gets the url for the pokemon
+    const getTwentyPokemonV2 = pokemon.results
+      .filter((item) => {
+        getPokemonIdFromUrl(item.url) ? item : console.log("No item here");
+      })
+      .map((item) => {
+        const splitUrl = getPokemonIdFromUrl(item.url);
+        return { id: splitUrl[4], name: item.name };
+      });
 
-    const url = new URL(pokemon.results[0].url);
-    console.log(url);
-
-    // to get the id of the pokemon, use the pathname property returned from the split
-    const splitUrl = url.pathname.split("/");
-    console.log(splitUrl);
-
-    // get the first 20 url from the pokemon api response
+    console.log(getTwentyPokemonV2);
   } catch (error) {
     console.error(`Fetch failed:`, error);
+  }
+}
+
+function getPokemonIdFromUrl(url) {
+  const pokemonUrl = new URL(url);
+  const splitUrl = pokemonUrl.pathname.split("/");
+  if (splitUrl[4] <= 20) {
+    console.log(splitUrl[4]);
+    return splitUrl[4];
   }
 }

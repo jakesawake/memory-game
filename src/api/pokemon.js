@@ -1,5 +1,4 @@
 export default async function fetchPokemon() {
-  // getting the list of 151 pokemon
   try {
     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
 
@@ -7,21 +6,17 @@ export default async function fetchPokemon() {
       throw new Error(`HTTP error! Status code: ${response.status}`);
     }
 
-    // console.log(response.status);
-
     const pokemon = await response.json();
-    // console.log(pokemon);
 
-    const getTwentyPokemonV2 = pokemon.results
+    const getTwentyPokemon = pokemon.results
       .filter((item) => {
-        getPokemonIdFromUrl(item.url) ? item : console.log("No item here");
+        return getPokemonIdFromUrl(item.url);
       })
       .map((item) => {
-        const splitUrl = getPokemonIdFromUrl(item.url);
-        return { id: splitUrl[4], name: item.name };
+        return { id: getPokemonIdFromUrl(item.url), name: item.name };
       });
 
-    console.log(getTwentyPokemonV2);
+    return getTwentyPokemon;
   } catch (error) {
     console.error(`Fetch failed:`, error);
   }
@@ -32,6 +27,6 @@ function getPokemonIdFromUrl(url) {
   const splitUrl = pokemonUrl.pathname.split("/");
   if (splitUrl[4] <= 20) {
     console.log(splitUrl[4]);
-    return splitUrl[4];
+    return Number(splitUrl[4]);
   }
 }

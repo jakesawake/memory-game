@@ -8,6 +8,10 @@ export default async function fetchPokemon() {
 
     const pokemon = await response.json();
 
+    // TODO: Refactor this code so that we don't have to call getPokemonIdFromUrl() twice
+    // - map over the full pokemon.results to attach the extracted id to every item (even then ones outside 1-20)
+    // - filter on that already-computed id field so that URL-parsing happens exactly once per item.
+
     const getTwentyPokemon = pokemon.results
       .filter((item) => {
         return getPokemonIdFromUrl(item.url);
@@ -18,7 +22,7 @@ export default async function fetchPokemon() {
 
     return getTwentyPokemon;
   } catch (error) {
-    console.error(`Fetch failed:`, error);
+    throw new Error("Could not fetch data", { cause: error });
   }
 }
 
@@ -26,7 +30,6 @@ function getPokemonIdFromUrl(url) {
   const pokemonUrl = new URL(url);
   const splitUrl = pokemonUrl.pathname.split("/");
   if (splitUrl[4] <= 20) {
-    console.log(splitUrl[4]);
     return Number(splitUrl[4]);
   }
 }

@@ -1,12 +1,7 @@
-import fetchPokemon from "./api/pokemon";
 import "./styles/App.css";
-import { useEffect } from "react";
+import Board from "./components/Board";
 
 function App() {
-  useEffect(() => {
-    fetchPokemon();
-  }, []);
-
   return (
     <div className="flex flex-col">
       <header className="mb-3 font-pokemon-game text-2xl">
@@ -16,6 +11,7 @@ function App() {
         Get points by clicking on a pokemon, but don't click the same pokemon
         more than once!
       </p>
+      <Board />
     </div>
   );
 }

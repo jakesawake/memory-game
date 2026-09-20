@@ -9,7 +9,7 @@ export default async function fetchPokemon() {
     const pokemon = await response.json();
 
     // TODO: Refactor this code so that we don't have to call getPokemonIdFromUrl() twice
-    // - map over the full pokemon.results to attach the extracted id to every item (even then ones outside 1-20)
+    // - map over the full pokemon.results to attach the extracted id to every item (even the ones outside 1-20)
     // - filter on that already-computed id field so that URL-parsing happens exactly once per item.
 
     const getTwentyPokemon = pokemon.results

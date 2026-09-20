@@ -7,7 +7,7 @@ function App() {
       <header className="mb-3 font-pokemon-game text-2xl">
         Pokemon Memory Game
       </header>
-      <p className="text-1xl font-pokemon-game">
+      <p className="font-pokemon-game text-xl">
         Get points by clicking on a pokemon, but don't click the same pokemon
         more than once!
       </p>

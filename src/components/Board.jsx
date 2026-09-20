@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 export default function Board() {
   const [pool, setPool] = useState([]); // initial 20 pokemon
-  const [board, setBoard] = useState([]); // pool of 9 pokemon
+  const [board, setBoard] = useState([]); // 9 pokemon shown on screen
   const [pickedIds, setPickedIds] = useState([]); // clicked id's
   const [highScore, setHighScore] = useState(0);
   const score = pickedIds.length;
@@ -28,6 +28,18 @@ export default function Board() {
       setPickedIds([]);
     } else {
       setPickedIds([...pickedIds, id]);
+      const remainingPokemon = pool.filter(
+        (pokemon) => !board.some((item) => pokemon.id === item.id),
+      );
+
+      const randomPokemonIndex = Math.floor(
+        Math.random() * remainingPokemon.length,
+      );
+      const newBoard = board.map((pokemon) =>
+        pokemon.id === id ? remainingPokemon[randomPokemonIndex] : pokemon,
+      );
+
+      setBoard(newBoard);
     }
   }
   return (

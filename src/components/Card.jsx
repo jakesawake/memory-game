@@ -2,7 +2,7 @@ export default function Card({ pokemonId, name, onClick }) {
   return (
     <div
       className="flex flex-col items-center justify-center"
-      onClick={onClick}
+      onClick={() => onClick(pokemonId)}
     >
       <img
         className="h-60 w-60"

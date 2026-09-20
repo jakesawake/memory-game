@@ -5,6 +5,7 @@ export default function Card({ pokemonId, name, onClick }) {
       onClick={onClick}
     >
       <img
+        className="h-60 w-60"
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
         alt={name}
       />
